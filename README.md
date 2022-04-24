@@ -179,7 +179,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@BuchananDempsey](https://twitter.com/BuchananDempsey)
+Ian Buchanan-Dempsey - [@BuchananDempsey](https://twitter.com/BuchananDempsey)
 
 Project Link: [https://github.com/isbd/Youtube_Tracker](https://github.com/isbd/Youtube_Tracker)
 

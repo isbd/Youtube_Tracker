@@ -137,9 +137,9 @@ WIP
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] API Connection
-    - [ ] Config File
-- [ ] Collect Specified Channel Data
+- [X] API Connection
+    - [X] Config File
+- [X] Collect Specified Channel Data
 - [ ] Collect Specified Video Data
     - [ ] Pull Transcripts
     - [ ] Transcript Analysis

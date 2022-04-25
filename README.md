@@ -116,7 +116,7 @@ Create a google project with a generated Youtube Data API v3 Token, Install pyth
 3. Enter your API in `config.ini`
    ```ini
    [youtube]
-   api_token='example_token'
+   api_token=example_token
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>

@@ -93,15 +93,15 @@ Youtube bot for collecting data on channels and videos for analysis
 <!-- GETTING STARTED -->
 ## Getting Started
 
-WIP
+Create a google project with a generated Youtube Data API v3 Token, Install python3 and pip install requirements.
 
 ### Prerequisites
 
-WIP Prerequisites
 * python
   ```sh
   WIP
   ```
+* Google project with generated Youtube Data API v3 Token
 
 ### Installation
 
@@ -109,10 +109,14 @@ WIP Prerequisites
    ```sh
    git clone https://github.com/isbd/Youtube_Tracker.git
    ```
-2. Install prereq
-3. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+2. Install google_api_python_client
+   ```sh
+   pip install google-api-python-client
+   ```
+3. Enter your API in `config.ini`
+   ```ini
+   [youtube]
+   api_token='example_token'
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -133,12 +137,12 @@ WIP
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] API Connection
-    - [ ] Config File
-- [ ] Collect Specified Channel Data
+- [X] API Connection
+    - [X] Config File
+- [X] Collect Specified Channel Data
 - [ ] Collect Specified Video Data
     - [ ] Pull Transcripts
-    - [ ] Trascript Anayalysis
+    - [ ] Transcript Analysis
       - [ ] Confidence Percentage
 
 See the [open issues](https://github.com/isbd/Youtube_Tracker/issues) for a full list of proposed features (and known issues).

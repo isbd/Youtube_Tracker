@@ -2,8 +2,6 @@
 Youtube bot for pulling channel data
 '''
 import configparser
-import json
-from lib2to3.pgen2.literals import test
 from googleapiclient.discovery import build
 
 class YoutubeBot():

@@ -47,6 +47,13 @@ class YoutubeBot():
         return False
 
     def pull_channel_id(self, username):
+        '''
+        @brief Pull's id reference of channel based off username
+
+        @param username Username of channel to pull id
+
+        @return Returns id or false if failed connection
+        '''
         request = self.youtube.channels().list(
             part = 'id',
             forUsername = username
@@ -57,6 +64,15 @@ class YoutubeBot():
         return False
 
     def get_video_data(self, channel_id, number_to_search):
+        '''
+        @brief Pull's upload videos from channel id
+
+        @param channel_id Channel to pull uploaded videos from
+
+        @param number_to_search Number of videos to pull
+
+        @return Returns video's json or false if failed connection
+        '''
         playlist = self.pull_uploads_playlist(channel_id)
         if playlist:
             request = self.youtube.playlistItems().list(
@@ -68,6 +84,13 @@ class YoutubeBot():
         return False
 
     def pull_uploads_playlist(self, channel_id):
+        '''
+        @brief Pull's uploaded playlist
+
+        @param channel_id Channel to pull uploaded videos from
+
+        @return Returns playlist of uploaded videos or False if failed
+        '''
         request = self.youtube.channels().list(
             part="contentDetails",
             id=channel_id,

@@ -86,15 +86,12 @@ class YoutubeBot():
                 maxResults=number_to_search
             )
             result = self.handle_request(request)
-            print(result)
             video_list.extend(result['items'])
             for _ in range(0, pages_to_iterate):
                 number_to_search -= 50
                 #Out of pages
                 if 'nextPageToken' not in result:
-                    print("NO TOKEN")
                     break
-                print("OKAY")
                 request = self.youtube.playlistItems().list(
                     part="snippet",
                     playlistId=playlist,

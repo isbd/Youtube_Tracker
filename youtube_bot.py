@@ -2,6 +2,7 @@
 Youtube bot for pulling channel data
 '''
 import configparser
+import math
 from googleapiclient.discovery import build
 
 class YoutubeBot():
@@ -26,8 +27,9 @@ class YoutubeBot():
         channel_info = self.pull_channel_stats(self.channel_list[0])
         print(f'Info on channel: {channel_info}')
         user_id = self.pull_channel_id(self.channel_list[0])
-        video_list = self.get_video_data(user_id, 30)
-        print(f'Info on videos: {video_list}')
+        video_list = self.get_uploaded_videos(user_id, 10)
+        print(f'Video list: {video_list}')
+        print(f'Entries: {len(video_list)}')
     
     def pull_channel_stats(self, username):
         '''
@@ -63,27 +65,48 @@ class YoutubeBot():
             return result['items'][0]['id']
         return False
 
-    def get_video_data(self, channel_id, number_to_search):
+    def get_uploaded_videos(self, channel_id, number_to_search):
         '''
-        @brief Pull's upload videos from channel id
+        @brief Pull's number of upload videos from channel id
 
         @param channel_id Channel to pull uploaded videos from
 
         @param number_to_search Number of videos to pull
 
-        @return Returns video's json or false if failed connection
+        @return Returns List of uploaded videos
         '''
-        playlist = self.pull_uploads_playlist(channel_id)
+        pages_to_iterate = math.ceil(number_to_search / 50) - 1
+        playlist = self.pull_uploads_playlist_reference(channel_id)
+        video_list = []
+
         if playlist:
             request = self.youtube.playlistItems().list(
                 part="snippet",
                 playlistId=playlist,
                 maxResults=number_to_search
             )
-            return self.handle_request(request)
+            result = self.handle_request(request)
+            print(result)
+            video_list.extend(result['items'])
+            for _ in range(0, pages_to_iterate):
+                number_to_search -= 50
+                #Out of pages
+                if 'nextPageToken' not in result:
+                    print("NO TOKEN")
+                    break
+                print("OKAY")
+                request = self.youtube.playlistItems().list(
+                    part="snippet",
+                    playlistId=playlist,
+                    maxResults=number_to_search,
+                    pageToken=result['nextPageToken']
+                )
+                result = self.handle_request(request)
+                video_list.extend(result['items'])
+            return video_list
         return False
 
-    def pull_uploads_playlist(self, channel_id):
+    def pull_uploads_playlist_reference(self, channel_id):
         '''
         @brief Pull's uploaded playlist
 

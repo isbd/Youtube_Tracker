@@ -19,6 +19,7 @@ class YoutubeBot():
         self.token = config['youtube']['api_token']
         self.youtube = build('youtube', 'v3', developerKey=self.token)
         self.channel_list = ['ethoslab']
+        self.channel_list_by_id = ['']
 
     def run(self):
         '''

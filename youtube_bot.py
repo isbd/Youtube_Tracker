@@ -3,6 +3,7 @@ Youtube bot for pulling channel data
 '''
 import configparser
 import math
+from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled
 from googleapiclient.discovery import build
 
 class YoutubeBot():
@@ -18,6 +19,7 @@ class YoutubeBot():
         self.token = config['youtube']['api_token']
         self.youtube = build('youtube', 'v3', developerKey=self.token)
         self.channel_list = ['ethoslab']
+        self.channel_list_by_id = ['']
 
     def run(self):
         '''
@@ -30,6 +32,7 @@ class YoutubeBot():
         video_list = self.get_uploaded_videos(user_id, 10)
         print(f'Video list: {video_list}')
         print(f'Entries: {len(video_list)}')
+        print(self.pull_captions(video_list[0]['snippet']['resourceId']['videoId']))
     
     def pull_channel_stats(self, username):
         '''
@@ -120,6 +123,22 @@ class YoutubeBot():
         if result:
             return result['items'][0]['contentDetails']['relatedPlaylists']['uploads']
         return False
+
+    @staticmethod
+    def pull_captions(video_id):
+        '''
+        @brief Pulls captions for specified video id
+
+        @param video_id Video Id reference for pulling captions
+
+        @return Returns caption details in dictionary list including text, 
+            start, duration or False if no captions
+        '''
+        try:
+            caption_dictionary = YouTubeTranscriptApi.get_transcript(video_id)
+        except TranscriptsDisabled as exception:
+            return False
+        return caption_dictionary
 
     @staticmethod
     def handle_request(request):
